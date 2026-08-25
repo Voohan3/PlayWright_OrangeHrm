@@ -50,7 +50,7 @@ export class PersonalDetailsPage extends BasePage {
     this.genderField = page.locator(".--gender-grouped-field");
     this.maleRadio = this.genderField.locator('label:has(input[value="1"])');
     this.femaleRadio = this.genderField.locator('label:has(input[value="2"])');
-    this.dobInput = page.locator("input[placeholder='dd-mm-yyyy']").nth(1);
+    this.dobInput = page.locator("input[placeholder*='yyyy']").nth(1);
     this.nationalityDropdown = page.locator(".oxd-select-text").nth(0);
     this.maritalStatusDropdown = page.locator(".oxd-select-text").nth(1);
     this.firstSaveButton = page

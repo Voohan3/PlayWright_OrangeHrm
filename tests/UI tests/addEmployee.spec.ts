@@ -18,7 +18,7 @@ test.describe("PIM - Employee Management", () => {
       page,
     }) => {
       const employeeViaAPI: CreateEmployeeAPIRequest = {
-        firstName: RandomDataUtil.randomString(6),
+        firstName: "John",
         middleName: RandomDataUtil.randomString(8),
         lastName: RandomDataUtil.randomString(10),
         employeeId: RandomDataUtil.randomNumber(7).toString()
@@ -37,7 +37,7 @@ test.describe("PIM - Employee Management", () => {
     page,
   }) => {
     const employee: Employee = {
-      firstName: RandomDataUtil.randomString(6),
+      firstName: "John",
       lastName: RandomDataUtil.randomString(8),
       middleName: RandomDataUtil.randomString(5),
       employeeId: RandomDataUtil.randomNumber(7).toString(),
