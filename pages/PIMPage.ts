@@ -1,4 +1,4 @@
-import { Page } from "@playwright/test";
+import { expect, Page } from "@playwright/test";
 import { BasePage } from "./BasePage";
 import { logger } from "../utils/Logger";
 
@@ -50,14 +50,30 @@ export class PIMPage extends BasePage {
     if (rows === 0) {
       logger.info(`No search results found for employee: ${name}`);
     }
-    for (let i = 0; i < rows - 1; i++) {
-      const row = this.resultTableRow
+    for (let i = 0; i < rows; i++) {
+      const firstNameCell = this.resultTableRow
         .nth(i)
         .getByRole("cell")
         .nth(2)
         .locator("div");
 
-      await this.shouldContain(row, name);
+      const lastNameCell = this.resultTableRow
+        .nth(i)
+        .getByRole("cell")
+        .nth(3)
+        .locator("div");
+
+      const firstNameText = await firstNameCell.textContent();
+      const lastNameText = await lastNameCell.textContent();
+
+      const matches =
+        firstNameText?.toLowerCase().includes(name.toLowerCase()) ||
+        lastNameText?.toLowerCase().includes(name.toLowerCase());
+
+      expect(
+        matches,
+        `Row ${i}: expected "${name}" in First Name ("${firstNameText}") or Last Name ("${lastNameText}")`,
+      ).toBeTruthy();
     }
   }
 }
