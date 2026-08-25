@@ -100,13 +100,24 @@ export class PersonalDetailsPage extends BasePage {
   }
 
   async savePersonalDetails() {
-    await this.firstSaveButton.click();
+    const [] = await Promise.all([
+      this.page.waitForResponse(
+        (response) =>
+          response
+            .url()
+            .includes(`/personal-details`) &&
+          response.request().method() === "PUT",
+      ),
+      await this.firstSaveButton.click(),
+      await this.verifySuccessMessage(),
+    ]);
+
     await this.waitForPageLoad();
     await this.waitForLoaderToDisappear();
   }
 
   async verifySuccessMessage() {
-    await expect(this.successToast).toBeVisible();
+    await expect(this.successToast).toBeVisible({timeout: 10000});
     await this.shouldContain(this.successToastTitle, "Success");
   }
 }

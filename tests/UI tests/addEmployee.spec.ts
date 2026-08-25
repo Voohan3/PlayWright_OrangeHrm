@@ -69,7 +69,7 @@ test.describe("PIM - Employee Management", () => {
     nationality: "Indian",
     maritalStatus: "Single",
     gender: "Male",
-    dateOfBirth: "01-01-1995"
+    dateOfBirth: "1995-01-01"
 });
 
   await personalDetailsPage.verifySuccessMessage();
