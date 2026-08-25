@@ -7,6 +7,7 @@ export class PersonalDetailsPage extends BasePage {
   // ---------- Headings ----------
   readonly personalDetailsHeading: Locator;
   readonly successToast: Locator;
+  readonly successToastTitle: Locator;
 
   // ---------- Employee Details ----------
   readonly employeeFirstName: Locator;
@@ -41,7 +42,10 @@ export class PersonalDetailsPage extends BasePage {
       name: "Personal Details",
     });
 
-    this.successToast = page.locator(".oxd-toast");
+    this.successToast = page.locator(".oxd-toast-content--success");
+    this.successToastTitle = this.successToast
+      .locator(".oxd-toast-content-text")
+      .nth(0);
     this.employeeFirstName = page.locator("input[name='firstName']");
     this.employeeMiddleName = page.locator("input[name='middleName']");
     this.employeeLastName = page.locator("input[name='lastName']");
@@ -102,6 +106,7 @@ export class PersonalDetailsPage extends BasePage {
   }
 
   async verifySuccessMessage() {
-    await expect(this.successToast).toContainText("Successfully Updated");
+    await expect(this.successToast).toBeVisible();
+    await this.shouldContain(this.successToastTitle, "Success");
   }
 }
