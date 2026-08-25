@@ -20,7 +20,11 @@ export default defineConfig({
     navigationTimeout: 30000,
     storageState: ".auth/admin.json",
   },
-  reporter: [["dot"], ["html", { open: "never" }], ["list"]],
+  reporter: [["dot"], ["html", { open: "never" }], ["list"], ["allure-playwright",  {
+      detail: true,
+      outputFolder: 'allure-results',
+      suiteTitle: false,
+    }]],
   projects: [
     {
       name: "setup",
